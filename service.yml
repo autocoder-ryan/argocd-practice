@@ -1,0 +1,31 @@
+# apiVersion 필드는 사용할 API의 버전을 지정합니다.
+apiVersion: v1
+
+# kind 필드는 생성할 Kubernetes 리소스의 종류를 지정합니다.
+# 여기서는 Service 리소스를 생성합니다.
+kind: Service
+
+# metadata 필드는 리소스의 메타데이터 정보를 포함합니다.
+metadata:
+  # name 필드는 Service의 이름을 설정합니다.
+  name: web-service
+
+# spec 필드는 Service 리소스의 상세 설정을 정의합니다.
+spec:
+  # selector 필드는 Service가 트래픽을 전달할 대상 Pod을 선택합니다.
+  # app.kubernetes.io/name 라벨이 'web-deploy'인 Pod이 선택됩니다.
+  selector:
+    app.kubernetes.io/name: web-deploy
+
+  # type 필드는 Service의 유형을 설정합니다.
+  # ClusterIP는 클러스터 내부에서만 접근 가능한 내부 IP를 제공합니다.
+  type: ClusterIP
+
+  # ports 필드는 Service의 포트를 정의합니다.
+  ports:
+    # protocol 필드는 사용할 프로토콜을 지정합니다. 여기서는 TCP를 사용합니다.
+  - protocol: TCP
+    
+    # port 필드는 외부에서 접근할 Service의 포트를 설정합니다.
+    # 여기서는 80번 포트를 사용합니다.
+    port: 80
