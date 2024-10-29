@@ -1,0 +1,39 @@
+# apiVersion 필드는 사용할 API의 버전을 지정합니다.
+apiVersion: apps/v1
+
+# kind 필드는 생성할 Kubernetes 리소스의 종류를 지정합니다.
+# 여기서는 Deployment 리소스를 생성합니다.
+kind: Deployment
+
+# metadata 필드는 리소스의 메타데이터 정보를 포함합니다.
+metadata:
+  # name 필드는 Deployment의 이름을 설정합니다.
+  name: deploy-test01
+
+# spec 필드는 Deployment 리소스의 상세 설정을 정의합니다.
+spec:
+  # replicas 필드는 생성할 Pod의 개수를 설정합니다. 여기서는 3개의 복제본을 만듭니다.
+  replicas: 3
+
+  # selector 필드는 이 Deployment가 관리할 Pod을 선택하는 기준을 정의합니다.
+  selector:
+    matchLabels:
+      # app.kubernetes.io/name 라벨이 'web-deploy'인 Pod이 선택됩니다.
+      app.kubernetes.io/name: web-deploy
+
+  # template 필드는 Pod의 템플릿을 정의하며, 새로운 Pod이 생성될 때 이 템플릿을 따릅니다.
+  template:
+    # metadata 필드는 Pod 템플릿의 메타데이터 정보를 포함합니다.
+    metadata:
+      # labels 필드는 생성되는 Pod에 설정될 라벨을 정의합니다.
+      labels:
+        app.kubernetes.io/name: web-deploy
+
+    # spec 필드는 Pod의 상세 설정을 정의합니다.
+    spec:
+      # containers 필드는 Pod에 포함될 컨테이너를 정의합니다.
+      containers:
+        # name 필드는 컨테이너의 이름을 설정합니다. 여기서는 nginx로 지정합니다.
+      - name: nginx
+        # image 필드는 컨테이너에 사용할 도커 이미지를 지정합니다. 여기서는 nginx 1.24 버전을 사용합니다.
+        image: nginx:1.24
